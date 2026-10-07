@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bolsonaro (2019–2022) × Lula (2023–2026): os mesmos indicadores, os 4 anos de cada um</title>
+<meta name="description" content="Comparação apartidária dos governos Bolsonaro e Lula com os mesmos indicadores, a mesma metodologia e todos os anos de cada mandato. Fontes oficiais: IBGE, Banco Central, Tesouro, DIEESE, INPE, FBSP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --soft:#f3f4f6;
+    --b:#7c5cff; --b-soft:#efeaff; --b-ink:#4c2fd6;
+    --l:#0fb5a0; --l-soft:#e3f8f4; --l-ink:#087a6c;
+    --warn:#b45309; --warnbg:#fff7ed; --warnline:#fed7aa;
+    --pos:#15803d; --neg:#dc2626;
+    --radius:18px; --shadow:0 1px 2px rgba(17,24,39,.04),0 8px 24px -12px rgba(17,24,39,.12);
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0e1116;--card:#161b24;--ink:#e6e8ee;--muted:#9aa3b2;--line:#252b37;--soft:#1c222d;
+      --b:#9b85ff;--b-soft:#241f3d;--b-ink:#c4b5ff;--l:#2dd4bf;--l-soft:#0f2a27;--l-ink:#7ff0de;
+      --warnbg:#2a1d0c;--warnline:#5a3a12;--warn:#fbbf24;--pos:#4ade80;--neg:#f87171;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.6)}
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* header */
+  header{position:relative;color:#fff;background:#0b0f1a;overflow:hidden}
+  header::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(900px 420px at 8% -10%,rgba(124,92,255,.55),transparent 60%),
+    radial-gradient(900px 420px at 95% 110%,rgba(15,181,160,.5),transparent 60%),
+    linear-gradient(180deg,#0b0f1a 0%,#121829 100%)}
+  header::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:36px 36px;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent);mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent)}
+  header .wrap{position:relative;z-index:1;padding:56px 20px 44px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#c7cbe0;margin-bottom:18px}
+  .eyebrow i{width:8px;height:8px;border-radius:50%;background:linear-gradient(90deg,var(--b),var(--l))}
+  h1{font-size:clamp(1.9rem,4.6vw,3.3rem);line-height:1.05;margin:0 0 16px;letter-spacing:-.03em;font-weight:800;max-width:900px}
+  h1 .vs{display:inline-block;font-family:var(--mono);font-weight:600;font-size:.5em;padding:4px 10px;border:1px solid rgba(255,255,255,.3);border-radius:999px;vertical-align:middle;margin:0 8px;color:#e4e7f5}
+  h1 .sub{display:block;font-size:.5em;font-weight:500;letter-spacing:-.01em;color:#b7bdd6;margin-top:10px}
+  .lead{font-size:1.08rem;color:#c9cee3;max-width:760px;margin:0 0 24px}
+  .lead strong{color:#fff}
+  .pills{display:flex;flex-wrap:wrap;gap:10px}
+  .pill{font-size:.84rem;font-weight:500;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#e6e8f3;backdrop-filter:blur(6px)}
+  .pill.b{background:rgba(124,92,255,.22);border-color:rgba(124,92,255,.5)}
+  .pill.l{background:rgba(15,181,160,.22);border-color:rgba(15,181,160,.5)}
+  .pill::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:1px;background:rgba(255,255,255,.5)}
+  .pill.b::before{background:var(--b)} .pill.l::before{background:var(--l)}
+
+  /* nav */
+  nav.toc{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--card) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:2px;overflow-x:auto;padding:10px 20px;scrollbar-width:none}
+  nav.toc a{white-space:nowrap;text-decoration:none;font-size:.86rem;font-weight:500;padding:7px 12px;border-radius:999px;color:var(--muted);transition:.15s}
+  nav.toc a:hover{background:var(--soft);color:var(--ink)}
+
+  /* layout */
+  main .wrap{padding:40px 20px 70px}
+  section{margin:0 0 56px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .sec-num{font-family:var(--mono);font-size:.8rem;font-weight:600;color:var(--muted);padding:3px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+  h2{font-size:clamp(1.4rem,2.4vw,1.8rem);margin:0;letter-spacing:-.02em;font-weight:700}
+  h3{font-size:1.06rem;margin:0 0 10px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:var(--muted);margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin:16px 0;box-shadow:var(--shadow)}
+  .note{position:relative;background:var(--warnbg);border:1px solid var(--warnline);border-radius:14px;padding:14px 16px 14px 46px;font-size:.93rem;margin:16px 0}
+  .note::before{content:"⚖";position:absolute;left:15px;top:12px;font-size:1.1rem;color:var(--warn)}
+  .note strong{color:var(--warn)}
+  .ctx{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:14px;padding:14px 18px;font-size:.93rem;margin:16px 0;color:var(--muted)}
+  .ctx strong{color:var(--ink)}
+
+  /* KPIs */
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .kpi{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;text-decoration:none;box-shadow:var(--shadow);transition:transform .18s,border-color .18s}
+  .kpi:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--muted) 40%,var(--line))}
+  .kpi .t{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;padding-right:20px}
+  .kpi .row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:6px 0}
+  .kpi .who{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:6px}
+  .kpi .who.b{color:var(--b-ink);background:var(--b-soft)} .kpi .who.l{color:var(--l-ink);background:var(--l-soft)}
+  .kpi .v{font-family:var(--mono);font-size:1.08rem;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;text-align:right}
+  .kpi .d{font-size:.78rem;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+  .kpi::after{content:"→";position:absolute;right:16px;top:14px;color:var(--muted);opacity:.5;font-size:.9rem}
+
+  /* tables */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:.9rem;font-variant-numeric:tabular-nums}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:var(--soft);font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover td{background:color-mix(in srgb,var(--soft) 60%,transparent)}
+  tr.b td:first-child{box-shadow:inset 4px 0 0 var(--b)} tr.l td:first-child{box-shadow:inset 4px 0 0 var(--l)}
+  tr.tot td{font-weight:700;background:var(--soft)}
+  tr.tot.b td{background:var(--b-soft)} tr.tot.l td{background:var(--l-soft)}
+  .pos{color:var(--pos);font-weight:600} .neg{color:var(--neg);font-weight:600}
+  td:not(:first-child){font-family:var(--mono);font-size:.84rem}
+
+  /* charts */
+  .chart{width:100%;height:auto;display:block;margin:6px 0 14px}
+  .chart text{fill:var(--muted)}
+  .chart .grid-line{stroke:var(--line)}
+  .chart .zero{stroke:var(--muted)}
+  .chart .val{fill:var(--ink);font-weight:600}
+  .chart .yr{font-weight:500}
+  .src{font-size:.8rem;color:var(--muted);margin-top:14px;line-height:1.6}
+  .src a{color:var(--b-ink);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--b-ink) 30%,transparent)}
+  .src a:hover{border-bottom-color:var(--b-ink)}
+  ol.sources li{margin:6px 0}
+  footer{border-top:1px solid var(--line);background:var(--card)}
+  footer .wrap{padding:26px 20px;font-size:.88rem;color:var(--muted)}
+  @media (max-width:640px){.card{padding:16px}.kpi .v{font-size:1rem}}
+  @media print{nav.toc{display:none} .card,.kpi{break-inside:avoid;box-shadow:none} header{color:#000;background:#fff} header::before,header::after{display:none}}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow"><i></i>Comparação apartidária · dados oficiais</div>
+    <h1>Bolsonaro 2019–2022 <span class="vs">vs</span> Lula 2023–2026
+      <span class="sub">Os mesmos indicadores. A mesma régua. Os 4 anos de cada um.</span></h1>
+    <p class="lead">Para cada indicador, uma única fonte oficial, uma única metodologia e <strong>todos</strong> os anos de cada governo, lado a lado. Nada de escolher o ano que fica melhor para cada lado.</p>
+    <div class="pills">
+      <span class="pill b">Governo Bolsonaro: 2019, 2020, 2021, 2022</span>
+      <span class="pill l">Governo Lula: 2023, 2024, 2025, 2026 (parcial)</span>
+      <span class="pill">Dados consultados em 07/10/2026</span>
+    </div>
+  </div>
+</header>
+
+
+<nav class="toc"><div class="wrap">
+  <a href="#metodo">Método</a>
+  <a href="#resumo">Resumo</a>
+  <a href="#economia">PIB e inflação</a>
+  <a href="#emprego">Emprego e renda</a>
+  <a href="#contas">Contas públicas</a>
+  <a href="#juros">Juros e câmbio</a>
+  <a href="#cesta">Cesta básica</a>
+  <a href="#social">Pobreza e Bolsa Família</a>
+  <a href="#seguranca">Segurança</a>
+  <a href="#ambiente">Desmatamento</a>
+  <a href="#fontes">Fontes</a>
+</div></nav>
+
+<main><div class="wrap">
+
+<section id="metodo">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Como esta página foi feita</h2></div>
+  <p class="sub">Regras simples, aplicadas igualmente aos dois governos.</p>
+  <div class="card">
+    <ol style="margin:0;padding-left:20px">
+      <li><strong>Mesma régua.</strong> Cada indicador usa uma única fonte oficial e uma única série. Quando a série foi revisada pelo órgão (como o PIB e a dívida), usamos a versão revisada para <em>todos</em> os anos, dos dois governos.</li>
+      <li><strong>Todos os anos.</strong> Mostramos 2019, 2020, 2021 e 2022 de um lado e 2023, 2024, 2025 e 2026 do outro. Sem pular ano ruim nem destacar só o ano bom.</li>
+      <li><strong>Ponto de partida igual.</strong> Para indicadores de "nível" (dívida, dólar, Selic, cesta básica), o ponto de partida de cada governo é o valor de dezembro do ano anterior à posse: dez/2018 para Bolsonaro, dez/2022 para Lula.</li>
+      <li><strong>2026 ainda não acabou.</strong> O governo Lula tem 3 anos e 9 meses de dados. Tudo que é de 2026 está marcado como parcial, com o mês do dado. Os acumulados de 4 anos de Bolsonaro são comparados com os acumulados de 3 anos e 8 meses de Lula, e isso é dito em cada tabela.</li>
+      <li><strong>Contexto nos dois lados.</strong> Pandemia (2020), guerra na Ucrânia e choque de commodities (2022), enchentes no RS (2024) e juros altos (2025) aparecem nas notas, sem servir de desculpa para ninguém.</li>
+      <li><strong>Cores são arbitrárias.</strong> Roxo e verde-água foram escolhidos por não serem cores de partido.</li>
+    </ol>
+  </div>
+  <div class="ctx">
+    <strong>Eventos que afetam a leitura:</strong>
+    2020: pandemia de covid-19, PIB cai 3,3%, auxílio emergencial leva o déficit a 10% do PIB e a dívida a 86,9% do PIB.
+    2021: inflação global de alimentos e energia, IPCA de 10%.
+    2022: guerra na Ucrânia, petróleo e grãos em alta, cortes de impostos sobre combustíveis e PEC que ampliou benefícios no ano eleitoral.
+    2023: PEC da Transição amplia gastos, pagamento de R$ 92 bi em precatórios atrasados, Selic começa a cair.
+    2024: enchentes no Rio Grande do Sul, dólar vai a R$ 6,19 no fim do ano.
+    2025: Selic chega a 15%, maior desde 2006, e inflação de alimentos cede.
+    2026: Selic começa a cair em março, atividade desacelera.
+  </div>
+</section>
+
+<section id="resumo">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Em 30 segundos</h2></div>
+  <p class="sub">Começo e fim de cada governo, no mesmo indicador. Os números de 2026 são os mais recentes disponíveis.</p>
+  <div class="grid" id="kpis"></div>
+  <p class="src">Os valores abaixo de cada tema são calculados automaticamente a partir das tabelas ano a ano desta página. Fontes nas seções correspondentes.</p>
+</section>
+
+<section id="economia">
+  <div class="sec-head"><span class="sec-num">03</span><h2>PIB e inflação</h2></div>
+  <p class="sub">Crescimento real do PIB e IPCA, ano a ano. Fonte: IBGE.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Crescimento real do PIB (% ao ano)</h3>
+    <svg class="chart" id="c-pib"></svg>
+    <div class="tbl"><table id="t-pib"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> o PIB de 2020 caiu com a pandemia e o de 2021 recuperou o tombo. Olhando os 4 anos, o governo Bolsonaro cresceu em média 1,4% ao ano. O governo Lula, nos 3 anos fechados, cresceu em média 3,0% ao ano, com desaceleração em 2025 e 2026 por causa dos juros. O dado de 2026 é o acumulado em 4 trimestres até junho, não o ano fechado.</div>
+    <p class="src">Fontes: IBGE, Contas Nacionais Trimestrais. <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/47902-pib-cresce-0-5-no-segundo-trimestre-de-2026" target="_blank" rel="noopener">PIB 2º tri/2026 (01/09/2026)</a> · <a href="https://www.poder360.com.br/poder-economia/pib-do-brasil-cresce-23-em-2025/" target="_blank" rel="noopener">PIB 2025: +2,3% (03/03/2026)</a> · série anual revisada no <a href="https://sidra.ibge.gov.br/tabela/5932" target="_blank" rel="noopener">SIDRA, tabela 5932</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Inflação, IPCA (% no ano)</h3>
+    <svg class="chart" id="c-ipca"></svg>
+    <div class="tbl"><table id="t-ipca"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> a meta do Banco Central é 3% com tolerância até 4,5%. Bolsonaro estourou o teto em 2021 (10,06%) e 2022 (5,78%); Lula estourou em 2024 (4,83%). Em 2025 o IPCA fechou em 4,26%, o menor desde 2018. O acumulado de 2026 vai até agosto; o IPCA de setembro sai em 09/10/2026.</div>
+    <p class="src">Fontes: IBGE/SIDRA, <a href="https://sidra.ibge.gov.br/tabela/7060" target="_blank" rel="noopener">tabela 7060</a> e <a href="https://sidra.ibge.gov.br/tabela/1419" target="_blank" rel="noopener">tabela 1419</a> (variação acumulada no ano); Banco Central, <a href="https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2019" target="_blank" rel="noopener">SGS série 433</a>. <a href="https://agenciadenoticias.ibge.gov.br/agencia-noticias/45613-ipca-em-dezembro-vai-a-0-33-e-acumula-4-26-em-2025.html" target="_blank" rel="noopener">IPCA 2025 (IBGE, 09/01/2026)</a>.</p>
+  </div>
+</section>
+
+<section id="emprego">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Emprego e renda</h2></div>
+  <p class="sub">Taxa de desemprego (média anual), vagas com carteira assinada e salário mínimo.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Taxa de desocupação, média anual (%)</h3>
+    <svg class="chart" id="c-des"></svg>
+    <div class="tbl"><table id="t-des"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> o desemprego subiu com a pandemia e começou a cair ainda em 2021, no governo Bolsonaro, chegando a 9,3% em 2022. A queda continuou no governo Lula até 5,6% em 2025, o menor da série iniciada em 2012. O dado de 2026 é o do 2º trimestre (abril a junho), não a média do ano.</div>
+    <p class="src">Fonte: IBGE, PNAD Contínua. <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/45759-pnad-continua-em-2025-taxa-anual-de-desocupacao-foi-de-5-6-enquanto-taxa-de-subutilizacao-foi-14-5" target="_blank" rel="noopener">Média anual 2025: 5,6%</a> · <a href="https://agenciadenoticias.ibge.gov.br/agencia-sala-de-imprensa/2013-agencia-de-noticias/releases/47774-pnad-continua-trimestral-desocupacao-cai-em-13-das-27-ufs-no-2-trimestre-de-2026" target="_blank" rel="noopener">2º trimestre de 2026: 5,4%</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Saldo de empregos com carteira assinada (Caged, mil vagas)</h3>
+    <svg class="chart" id="c-caged"></svg>
+    <div class="tbl"><table id="t-caged"></table></div>
+    <div class="note"><strong>Atenção à metodologia:</strong> o Caged mudou em 2020 (Novo Caged, com eSocial). O número de 2019 vem da série antiga e o Ministério do Trabalho recomenda não comparar diretamente. Por isso, o acumulado de Bolsonaro é mostrado com e sem 2019. O saldo de 2026 só fecha em janeiro de 2027.</div>
+    <p class="src">Fonte: Ministério do Trabalho e Emprego, <a href="https://pdet.mte.gov.br/novo-caged" target="_blank" rel="noopener">Novo Caged</a>. <a href="https://www.oliberal.com/economia/saldo-liquido-de-empregos-em-2025-e-de-1-279-498-pior-da-serie-mostra-caged-1.1077884" target="_blank" rel="noopener">Saldo 2025: 1.279.498 (divulgado em 30/01/2026)</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Salário mínimo × inflação</h3>
+    <div class="tbl"><table id="t-sm"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> no governo Bolsonaro o mínimo foi corrigido só pela inflação (INPC), então o ganho real nos 4 anos ficou perto de zero. No governo Lula voltou a regra "inflação + crescimento do PIB", o que deu ganho real acumulado de cerca de 13% até 2026. O outro lado da moeda: o mínimo reajusta aposentadorias e benefícios e pesa nas contas públicas da seção seguinte.</div>
+    <p class="src">Fontes: decretos anuais do salário mínimo (último: <a href="https://www.tnh1.com.br/noticia/nid/decreto-fixando-novo-valor-do-salario-minimo-de-2026-e-publicado-no-diario-oficial/" target="_blank" rel="noopener">Decreto 12.797/2025, R$ 1.621 em 2026</a>); IPCA do IBGE. Em 2023 o mínimo foi R$ 1.302 de janeiro a abril e R$ 1.320 de maio em diante.</p>
+  </div>
+</section>
+
+<section id="contas">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Contas públicas</h2></div>
+  <p class="sub">Resultado primário do Governo Central (Tesouro, Previdência e BC) e Dívida Bruta do Governo Geral. As duas séries que mais aparecem distorcidas em comparações seletivas.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Resultado primário do Governo Central (R$ bilhões, valores correntes)</h3>
+    <svg class="chart" id="c-prim"></svg>
+    <div class="tbl"><table id="t-prim"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> é verdade que o déficit aumentou no governo Lula: foram 3 anos seguidos no vermelho (2023 com R$ 230 bi, puxado pela PEC da Transição e por R$ 92 bi de precatórios represados; 2024 com R$ 43 bi; 2025 com R$ 62 bi). Também é verdade que o governo Bolsonaro fechou 2022 com superávit de R$ 54 bi, o único dos 4 anos, depois de R$ 743 bi de déficit em 2020 (pandemia). Somando os 4 anos, Bolsonaro acumulou déficit maior em reais, mas quase todo ele é 2020. Tirando 2020, as somas ficam mais próximas, e Lula tem o déficit maior. As duas contas estão na tabela.</div>
+    <p class="src">Fonte: Tesouro Nacional, <a href="https://www.tesourotransparente.gov.br/publicacoes/boletim-resultado-do-tesouro-nacional-rtn" target="_blank" rel="noopener">Resultado do Tesouro Nacional (RTN)</a>. <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2026-01/deficit-primario-do-governo-central-totaliza-r-617-bilhoes-em-2025" target="_blank" rel="noopener">2025: déficit de R$ 61,7 bi, 0,48% do PIB</a> · <a href="https://www.jornaldocomercio.com/economia/2026/09/1265048-governo-central-tem-deficit-primario-de-rs-13585-bi-em-agosto-mostra-tesouro.html" target="_blank" rel="noopener">jan–ago/2026: déficit de R$ 94,9 bi (RTN de 29/09/2026)</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Dívida Bruta do Governo Geral (% do PIB, dezembro de cada ano)</h3>
+    <svg class="chart" id="c-dbgg"></svg>
+    <div class="tbl"><table id="t-dbgg"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> a dívida subiu no governo Lula, de 71,7% para 82,9% do PIB (ago/2026), alta de 11,2 pontos. Isso é fato. O que a comparação seletiva esconde é o caminho: no governo Bolsonaro a dívida foi a 86,9% em 2020 e depois caiu, em parte porque a inflação alta de 2021–2022 inflou o PIB nominal (o denominador) e porque o BNDES devolveu recursos ao Tesouro. No governo Lula, o principal fator de alta foram os juros: só em 2026 os juros nominais acrescentaram 6,5 pontos do PIB à dívida. Comparando dezembro do ano anterior à posse com o último dado, Bolsonaro terminou 3,6 pontos abaixo de onde começou e Lula está 11,2 pontos acima.</div>
+    <p class="src">Fonte: Banco Central, <a href="https://api.bcb.gov.br/dados/serie/bcdata.sgs.13762/dados?formato=json&dataInicial=01/12/2018" target="_blank" rel="noopener">SGS série 13762 (DBGG, % PIB)</a>, série revisada após a revisão do PIB pelo IBGE. <a href="https://www.cnnbrasil.com.br/economia/money/macroeconomia/bc-divida-bruta-do-governo-geral-avanca-para-829-do-pib-em-agosto/" target="_blank" rel="noopener">Ago/2026: 82,9% (Estatísticas Fiscais de 30/09/2026)</a>.</p>
+  </div>
+</section>
+
+<section id="juros">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Juros e câmbio</h2></div>
+  <p class="sub">Selic (meta) e dólar PTAX no fim de cada ano. Fonte: Banco Central.</p>
+  <div class="card">
+    <h3 style="margin-top:0">Selic, meta no fim do ano (% a.a.)</h3>
+    <svg class="chart" id="c-selic"></svg>
+    <div class="tbl"><table id="t-selic"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> desde 2021 o Banco Central é autônomo e a Selic é decidida pelo Copom, não pelo presidente. Bolsonaro começou com Selic de 6,5%, viu a mínima histórica de 2% em 2020 e terminou com 13,75%. Lula recebeu 13,75%, viu cair a 10,5% em 2024, subir a 15% em 2025 (maior desde 2006) e hoje está em 13,75%, o mesmo nível em que recebeu. Juros altos foram a resposta do BC à inflação e ao risco fiscal, nos dois governos.</div>
+    <p class="src">Fonte: Banco Central, <a href="https://www.bcb.gov.br/controleinflacao/historicotaxasjuros" target="_blank" rel="noopener">histórico das taxas de juros</a> e <a href="https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados?formato=json&dataInicial=31/12/2018" target="_blank" rel="noopener">SGS série 432</a>. <a href="https://agenciabrasil.ebc.com.br/economia/noticia/2026-09/ata-do-copom-atribui-corte-da-selic-desaceleracao-da-economia" target="_blank" rel="noopener">Copom de 16/09/2026: corte para 13,75%</a>.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Dólar PTAX, venda, último dia útil do ano (R$)</h3>
+    <svg class="chart" id="c-usd"></svg>
+    <div class="tbl"><table id="t-usd"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> o dólar subiu 35% no governo Bolsonaro (de R$ 3,87 para R$ 5,22) e caiu 4% até agora no governo Lula (para R$ 4,99 em 07/10/2026), mas passou por R$ 6,19 no fim de 2024. Câmbio depende muito do cenário externo (juros nos EUA, preço de commodities) e do diferencial de juros; o nível alto da Selic em 2025–2026 ajudou a atrair dólares.</div>
+    <p class="src">Fonte: Banco Central, <a href="https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json&dataInicial=01/12/2018" target="_blank" rel="noopener">SGS série 1 (PTAX venda)</a>.</p>
+  </div>
+</section>
+
+<section id="cesta">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Cesta básica e preço dos alimentos</h2></div>
+  <p class="sub">Custo da cesta básica do DIEESE em São Paulo (a mesma cidade e a mesma cesta de 13 produtos em todos os anos) e variação de preço dos principais alimentos pelo IPCA.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Cesta básica DIEESE, São Paulo, dezembro de cada ano (R$)</h3>
+    <svg class="chart" id="c-cesta"></svg>
+    <div class="tbl"><table id="t-cesta"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> no governo Bolsonaro a cesta paulistana subiu 67,8% em 4 anos (de R$ 471 para R$ 791), bem acima do IPCA do período (26,9%): o grosso veio em 2020 (+24,7%) e 2022 (+14,6%). No governo Lula ela subiu 13,8% até agosto de 2026 (para R$ 901), abaixo do IPCA do período (17,9%). Em 2023 a cesta chegou a cair. A relação com o salário mínimo mostra o efeito no bolso: a cesta consumia 49% do mínimo em dez/2018, 65% em dez/2022 e 56% em ago/2026.</div>
+    <p class="src">Fonte: DIEESE, Pesquisa Nacional da Cesta Básica de Alimentos, notas à imprensa de
+      <a href="https://imap.dieese.org.br/analisecestabasica/2018/201812cestabasica.pdf" target="_blank" rel="noopener">dez/2018</a>,
+      <a href="https://www.dieese.org.br/analisecestabasica/2019/201912cestabasica.pdf" target="_blank" rel="noopener">dez/2019</a>,
+      <a href="https://www.dieese.org.br/analisecestabasica/2020/202012cestabasica.pdf" target="_blank" rel="noopener">dez/2020</a>,
+      <a href="https://www.dieese.org.br/analisecestabasica/2021/202112cestabasica.pdf" target="_blank" rel="noopener">dez/2021</a>,
+      <a href="https://imap.dieese.org.br/analisecestabasica/2022/202212cestabasica.pdf" target="_blank" rel="noopener">dez/2022</a>,
+      <a href="https://www.dieese.org.br/analisecestabasica/2023/202312cestabasica.pdf" target="_blank" rel="noopener">dez/2023</a>,
+      <a href="https://imap.dieese.org.br/analisecestabasica/2024/202412cestabasica.pdf" target="_blank" rel="noopener">dez/2024</a>,
+      <a href="https://www.dieese.org.br/analisecestabasica/2025/202512cestabasica.pdf" target="_blank" rel="noopener">dez/2025</a> e
+      <a href="https://www.dieese.org.br/analisecestabasica/2026/202608cestabasica.pdf" target="_blank" rel="noopener">ago/2026</a> (divulgada em 10/09/2026). Índice da série: <a href="https://www.dieese.org.br/analisecestabasica/analiseCestaBasicaAnteriores.html" target="_blank" rel="noopener">dieese.org.br</a>.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Variação de preço por alimento, IPCA (% acumulado no ano, Brasil)</h3>
+    <p class="sub" style="margin-bottom:8px">Itens da cesta básica medidos pelo IBGE. A última coluna de cada governo soma os anos (juros compostos). Lula: 2023 a agosto de 2026.</p>
+    <div class="tbl"><table id="t-itens"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> alimentos subiram muito mais no governo Bolsonaro: óleo de soja +141%, batata +92%, açúcar +78%, farinha de trigo +77%, carnes +72%, arroz +57%, contra IPCA geral de 27%. No governo Lula, a alimentação no domicílio subiu 13% até agosto de 2026, menos que o IPCA geral (18%); arroz, óleo, batata, tomate, açúcar e farinha ficaram mais baratos que em dez/2022, enquanto café (+46%), leite (+22%) e carnes (+18%) subiram. Parte da diferença é cenário externo: 2020–2022 tiveram pandemia, dólar alto e guerra; 2023–2025 tiveram safras recordes e dólar em queda.</div>
+    <p class="src">Fonte: IBGE, IPCA por subitem, variação acumulada no ano. <a href="https://sidra.ibge.gov.br/tabela/1419" target="_blank" rel="noopener">SIDRA tabela 1419</a> (2019) e <a href="https://sidra.ibge.gov.br/tabela/7060" target="_blank" rel="noopener">SIDRA tabela 7060</a> (2020 em diante). Consulta via API em 07/10/2026. "Carnes" é o subgrupo que reúne os cortes bovinos (acém, alcatra, contrafilé, etc.).</p>
+  </div>
+</section>
+
+<section id="social">
+  <div class="sec-head"><span class="sec-num">08</span><h2>Pobreza e transferência de renda</h2></div>
+  <p class="sub">Percentual da população abaixo das linhas de pobreza do Banco Mundial, calculado pelo IBGE, e tamanho do Bolsa Família / Auxílio Brasil.</p>
+  <div class="card">
+    <h3 style="margin-top:0">População em situação de pobreza (%)</h3>
+    <svg class="chart" id="c-pob"></svg>
+    <div class="tbl"><table id="t-pob"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> a pobreza caiu em 2020 por causa do auxílio emergencial de R$ 600, subiu ao recorde em 2021 quando o auxílio foi reduzido, e voltou a cair em 2022 com o Auxílio Brasil de R$ 600. No governo Lula a queda continuou, para 23,1% em 2024, o menor da série, com Bolsa Família de R$ 600 mais adicionais e mercado de trabalho forte. O dado de 2025 só sai em dezembro de 2026. A extrema pobreza (US$ 2,15/dia) só tem série comparável a partir de 2021; 2019 e 2020 foram calculados pelo IBGE com outra linha e não entram.</div>
+    <p class="src">Fonte: IBGE, <a href="https://www.ibge.gov.br/estatisticas/sociais/populacao/9221-sintese-de-indicadores-sociais.html" target="_blank" rel="noopener">Síntese de Indicadores Sociais</a>, edições 2023, 2024 e 2025 (linhas de US$ 6,85 e US$ 2,15 por dia, PPC 2017). <a href="https://www.metropoles.com/brasil/ibge-mais-de-86-milhoes-deixam-pobreza-em-melhor-numero-desde-2012" target="_blank" rel="noopener">SIS 2025: pobreza em 23,1% e extrema pobreza em 3,5% em 2024 (03/12/2025)</a>.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Bolsa Família / Auxílio Brasil</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Momento</th><th>Programa</th><th>Famílias atendidas</th><th>Benefício médio</th><th>Piso</th></tr></thead>
+      <tbody>
+        <tr class="b"><td>Ago/2022 (fim do governo Bolsonaro)</td><td>Auxílio Brasil</td><td>20,2 milhões</td><td>R$ 607,88</td><td>R$ 600 (desde ago/2022; antes, R$ 400)</td></tr>
+        <tr class="l"><td>Fev/2026 (governo Lula)</td><td>Bolsa Família</td><td>18,84 milhões</td><td>R$ 690,01</td><td>R$ 600 + R$ 150 por criança até 6 anos + R$ 50 por gestante/adolescente</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Leitura justa:</strong> o piso de R$ 600 foi criado no governo Bolsonaro, em agosto de 2022, e mantido por Lula, que acrescentou adicionais por criança. O número de famílias caiu cerca de 2 milhões desde 2023, principalmente por revisão cadastral de famílias unipessoais; o governo chama de "pente-fino", críticos chamam de corte. Os dois lados dos números estão aqui.</div>
+    <p class="src">Fontes: <a href="https://jornalgrandebahia.com.br/2022/08/auxilio-brasil-chega-a-202-milhoes-de-beneficiarios-em-agosto-de-2022/" target="_blank" rel="noopener">Ministério da Cidadania, ago/2022</a> · <a href="https://tribunadejundiai.com.br/mais/brasil/bolsa-familia-fevereiro-2026-18-milhoes-beneficiarios/" target="_blank" rel="noopener">MDS, folha de fev/2026</a> · painéis do <a href="https://www.gov.br/mds/pt-br" target="_blank" rel="noopener">MDS</a>.</p>
+  </div>
+</section>
+
+<section id="seguranca">
+  <div class="sec-head"><span class="sec-num">09</span><h2>Segurança pública</h2></div>
+  <p class="sub">Mortes violentas intencionais (homicídio doloso, latrocínio, lesão seguida de morte e mortes por intervenção policial). Fonte: Fórum Brasileiro de Segurança Pública.</p>
+  <div class="card">
+    <h3 style="margin-top:0">Mortes violentas intencionais por ano</h3>
+    <svg class="chart" id="c-mvi"></svg>
+    <div class="tbl"><table id="t-mvi"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> a queda de mortes violentas é uma tendência que começou em 2018, antes dos dois governos, e continuou em ambos, com uma interrupção em 2020 (pandemia). Bolsonaro: de 57,9 mil em 2018 para 47,5 mil em 2022 (−18%). Lula: para 40,8 mil em 2025 (−14% sobre 2022), menor da série. Segurança pública é majoritariamente responsabilidade dos estados, então atribuir o resultado ao presidente, em qualquer governo, exige cautela. Feminicídios subiram nos dois períodos.</div>
+    <p class="src">Fonte: FBSP, <a href="https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/" target="_blank" rel="noopener">Anuário Brasileiro de Segurança Pública</a>, edições 2020 a 2026 (o valor de 2021 é o revisado na edição 2023). <a href="https://forumseguranca.org.br/wp-content/uploads/2026/07/anuario-2026-infografico.pdf" target="_blank" rel="noopener">Anuário 2026 (dados de 2025)</a> · <a href="https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-07/mortes-violentas-caem-82-no-pais-em-2025-feminicidios-aumentam-4" target="_blank" rel="noopener">Agência Brasil, 23/07/2026</a>.</p>
+  </div>
+</section>
+
+<section id="ambiente">
+  <div class="sec-head"><span class="sec-num">10</span><h2>Desmatamento na Amazônia</h2></div>
+  <p class="sub">Taxa anual PRODES (agosto a julho), em km². Fonte: INPE.</p>
+  <div class="card">
+    <h3 style="margin-top:0">Área desmatada, PRODES (km²)</h3>
+    <svg class="chart" id="c-prodes"></svg>
+    <div class="tbl"><table id="t-prodes"></table></div>
+    <div class="note"><strong>Leitura justa:</strong> o desmatamento subiu no governo Bolsonaro (média de 11,4 mil km²/ano, pico de 13 mil em 2021) e caiu no governo Lula (média de 7,1 mil km²/ano, 5,8 mil em 2025, o menor em 11 anos). O ano PRODES 2023 (ago/2022 a jul/2023) tem 5 meses do governo anterior. O valor de 2025 ainda é a estimativa do INPE; o consolidado sai em 2026.</div>
+    <p class="src">Fonte: INPE, <a href="https://terrabrasilis.dpi.inpe.br/app/dashboard/deforestation/biomes/legal_amazon/rates" target="_blank" rel="noopener">TerraBrasilis / PRODES</a>. <a href="https://www.gov.br/inpe/pt-br/assuntos/ultimas-noticias/20251015Nota_tcnica_EstimativaPRODES_2025.pdf" target="_blank" rel="noopener">Nota técnica PRODES 2025 (estimativa, out/2025)</a> · <a href="https://data.inpe.br/biomasbr/wp-content/uploads/sites/3/2025/07/Nota_tecnica_PRODES_2024_consolidada.pdf" target="_blank" rel="noopener">PRODES 2024 consolidado</a>.</p>
+  </div>
+</section>
+
+<section id="fontes">
+  <div class="sec-head"><span class="sec-num">11</span><h2>Fontes, datas e o que ainda vai mudar</h2></div>
+  <div class="card">
+    <p style="margin-top:0">Todos os dados foram consultados em <strong>07/10/2026</strong> diretamente nas fontes abaixo ou nos releases oficiais. Onde há API pública (Banco Central e IBGE), os links levam à série bruta.</p>
+    <ol class="sources" style="padding-left:20px">
+      <li><strong>IBGE</strong>: Contas Nacionais (PIB), IPCA (SIDRA 1419 e 7060), PNAD Contínua, Síntese de Indicadores Sociais.</li>
+      <li><strong>Banco Central</strong>: SGS séries 13762 (dívida bruta), 432 (Selic meta), 1 (PTAX), 433 (IPCA mensal); atas e decisões do Copom.</li>
+      <li><strong>Tesouro Nacional</strong>: Resultado do Tesouro Nacional (RTN), boletins mensais e anuais.</li>
+      <li><strong>Ministério do Trabalho e Emprego</strong>: Novo Caged.</li>
+      <li><strong>DIEESE</strong>: Pesquisa Nacional da Cesta Básica de Alimentos, notas mensais.</li>
+      <li><strong>INPE</strong>: PRODES Amazônia Legal.</li>
+      <li><strong>Fórum Brasileiro de Segurança Pública</strong>: Anuário Brasileiro de Segurança Pública.</li>
+      <li><strong>MDS / Ministério da Cidadania</strong>: folhas de pagamento do Bolsa Família e Auxílio Brasil.</li>
+      <li><strong>Diário Oficial da União</strong>: decretos do salário mínimo.</li>
+    </ol>
+    <h3>Próximas divulgações que atualizam esta página</h3>
+    <ul style="margin:0;padding-left:20px">
+      <li>IPCA de setembro/2026: 09/10/2026 (IBGE).</li>
+      <li>PNAD Contínua do 3º trimestre: fim de outubro/2026 (IBGE).</li>
+      <li>Resultado do Tesouro de setembro: fim de outubro/2026.</li>
+      <li>Dívida bruta de setembro: fim de outubro/2026 (BC).</li>
+      <li>PRODES 2026 (estimativa): novembro/2026 (INPE).</li>
+      <li>PIB do 3º trimestre: dezembro/2026 (IBGE).</li>
+      <li>Síntese de Indicadores Sociais com pobreza de 2025: dezembro/2026 (IBGE).</li>
+      <li>PIB fechado de 2026 e IPCA de 2026: março e janeiro de 2027. Só então a comparação 4 anos × 4 anos fica completa.</li>
+    </ul>
+    <h3>O que esta página não faz</h3>
+    <ul style="margin:0;padding-left:20px">
+      <li>Não compara dezembro de um governo com um mês qualquer do outro sem avisar. Quando 2026 é parcial, está escrito.</li>
+      <li>Não usa número de ministérios, IOF ou lucro de estatais como "indicador de governo": são decisões administrativas, não resultados, e cada um pode ser defendido ou atacado conforme a preferência.</li>
+      <li>Não atribui ao presidente o que depende do Congresso, do Banco Central autônomo, dos estados ou do cenário externo, sem dizer isso.</li>
+    </ul>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  Página independente e apartidária. Nenhum número foi arredondado além do que a fonte publica. Se encontrar erro, confira o link da fonte ao lado de cada tabela: ele vale mais do que esta página.
+</div></footer>
+
+<script>
+/* ===================== DADOS (ano a ano, fonte ao lado de cada tabela) ===================== */
+const Y_B = [2019,2020,2021,2022], Y_L = [2023,2024,2025,2026];
+const fmt = (v,d=1)=> v==null ? 'n/d' : v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sign = (v,d=1,suf='')=> v==null ? 'n/d' : (v>0?'+':'')+fmt(v,d)+suf;
+const cls = v => v==null?'':(v>0?'pos':(v<0?'neg':''));
+const compound = arr => arr.reduce((a,x)=>a*(1+x/100),1)*100-100;
+
+const D = {
+  pib:   {2019:1.2, 2020:-3.3, 2021:4.8, 2022:3.0, 2023:3.2, 2024:3.4, 2025:2.3, 2026:1.9},
+  ipca:  {2019:4.31,2020:4.52,2021:10.06,2022:5.78,2023:4.62,2024:4.83,2025:4.26,2026:3.11},
+  alim:  {2019:7.84,2020:18.15,2021:8.24,2022:13.23,2023:-0.52,2024:8.23,2025:1.43,2026:3.44},
+  des:   {2019:11.9,2020:13.8,2021:13.2,2022:9.3,2023:7.8,2024:6.6,2025:5.6,2026:5.4},
+  caged: {2019:644.079,2020:-191.943,2021:2780.155,2022:2013.261,2023:1483.598,2024:1677.575,2025:1279.498,2026:null},
+  sm:    {2018:954,2019:998,2020:1045,2021:1100,2022:1212,2023:1320,2024:1412,2025:1518,2026:1621},
+  prim:  {2019:-95.1,2020:-743.1,2021:-35.1,2022:54.1,2023:-230.5,2024:-43.0,2025:-61.7,2026:-94.9},
+  primp: {2019:-1.3,2020:-10.0,2021:-0.4,2022:0.5,2023:-2.1,2024:-0.4,2025:-0.5,2026:null},
+  dbgg:  {2018:75.3,2019:74.4,2020:86.9,2021:77.3,2022:71.7,2023:73.8,2024:76.3,2025:78.6,2026:82.9},
+  selic: {2018:6.50,2019:4.50,2020:2.00,2021:9.25,2022:13.75,2023:11.75,2024:12.25,2025:15.00,2026:13.75},
+  usd:   {2018:3.87,2019:4.03,2020:5.20,2021:5.58,2022:5.22,2023:4.84,2024:6.19,2025:5.50,2026:4.99},
+  cesta: {2018:471.44,2019:506.50,2020:631.46,2021:690.51,2022:791.29,2023:761.01,2024:841.29,2025:845.95,2026:900.59},
+  pob:   {2019:32.6,2020:31.1,2021:36.7,2022:31.6,2023:27.3,2024:23.1,2025:null,2026:null},
+  xpob:  {2019:null,2020:null,2021:9.0,2022:5.9,2023:4.4,2024:3.5,2025:null,2026:null},
+  mvi:   {2018:57956,2019:47773,2020:50033,2021:48431,2022:47508,2023:46328,2024:44127,2025:40775,2026:null},
+  prodes:{2018:7536,2019:10129,2020:10851,2021:13038,2022:11594,2023:9064,2024:6518,2025:5796,2026:null},
+};
+const ITENS = [
+  ['Alimentação no domicílio (subgrupo)', {2019:7.84,2020:18.15,2021:8.24,2022:13.23,2023:-0.52,2024:8.23,2025:1.43,2026:3.44}],
+  ['Arroz',            {2019:1.17,2020:76.01,2021:-16.88,2022:5.98,2023:24.54,2024:8.24,2025:-26.56,2026:0.39}],
+  ['Feijão carioca',   {2019:55.99,2020:16.23,2021:-8.12,2022:27.77,2023:-13.77,2024:-8.57,2025:-4.21,2026:42.30}],
+  ['Feijão preto',     {2019:7.76,2020:45.38,2021:-3.18,2022:-6.01,2023:13.20,2024:-1.52,2025:-32.38,2026:25.85}],
+  ['Carnes (bovina)',  {2019:32.40,2020:17.97,2021:8.45,2022:1.84,2023:-9.37,2024:20.84,2025:1.22,2026:6.22}],
+  ['Frango inteiro',   {2019:12.21,2020:17.16,2021:19.89,2022:7.72,2023:-7.43,2024:8.25,2025:1.61,2026:-2.45}],
+  ['Ovo de galinha',   {2019:14.73,2020:11.42,2021:13.24,2022:18.45,2023:2.83,2024:-4.54,2025:3.99,2026:-0.78}],
+  ['Leite longa vida', {2019:6.05,2020:26.93,2021:-3.72,2022:26.18,2023:-7.83,2024:18.83,2025:-12.87,2026:27.33}],
+  ['Café moído',       {2019:-7.39,2020:7.70,2021:50.24,2022:13.51,2023:-9.07,2024:39.60,2025:35.65,2026:-15.26}],
+  ['Óleo de soja',     {2019:8.81,2020:103.79,2021:4.16,2022:4.22,2023:-28.00,2024:29.21,2025:3.23,2026:-10.23}],
+  ['Açúcar refinado',  {2019:10.16,2020:12.11,2021:47.87,2022:-2.32,2023:11.20,2024:-0.41,2025:-1.53,2026:-14.59}],
+  ['Farinha de trigo', {2019:2.65,2020:14.96,2021:14.51,2022:31.00,2023:-9.14,2024:-2.76,2025:-0.24,2026:-4.33}],
+  ['Pão francês',      {2019:1.51,2020:4.99,2021:6.38,2022:18.03,2023:3.64,2024:3.27,2025:5.86,2026:3.78}],
+  ['Batata inglesa',   {2019:-2.21,2020:67.27,2021:-22.82,2022:51.92,2023:4.18,2024:-12.53,2025:-13.65,2026:17.31}],
+  ['Tomate',           {2019:-30.45,2020:52.76,2021:18.60,2022:11.87,2023:-2.91,2024:-25.86,2025:4.38,2026:15.20}],
+  ['Manteiga',         {2019:-0.56,2020:7.56,2021:6.68,2022:22.34,2023:0.35,2024:6.13,2025:-4.48,2026:0.37}],
+  ['IPCA geral (referência)', {2019:4.31,2020:4.52,2021:10.06,2022:5.78,2023:4.62,2024:4.83,2025:4.26,2026:3.11}],
+];
+const NOTE26 = {
+  pib:'acum. 4 trim. até jun/26', ipca:'jan–ago/26', alim:'jan–ago/26', des:'2º tri/26', caged:'fecha em jan/27',
+  prim:'jan–ago/26', dbgg:'ago/26', selic:'07/10/26', usd:'07/10/26', cesta:'ago/26', pob:'sai em dez/26', mvi:'sai em jul/27', prodes:'sai em nov/26'
+};
+
+/* ===================== HELPERS ===================== */
+function yrLabel(y,key){ return y===2026 && NOTE26[key] ? `2026 <span style="color:var(--muted);font-size:.8em">(${NOTE26[key]})</span>` : y; }
+
+function table(id, cols, rows, totals){
+  const t=document.getElementById(id);
+  let h='<thead><tr><th>Ano</th>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>';
+  rows.forEach(r=>{ h+=`<tr class="${r.g}"><td>${r.label}</td>`+r.cells.map(c=>`<td class="${c.cls||''}">${c.v}</td>`).join('')+'</tr>'; });
+  (totals||[]).forEach(r=>{ h+=`<tr class="tot ${r.g||''}"><td>${r.label}</td>`+r.cells.map(c=>`<td class="${c.cls||''}">${c.v}</td>`).join('')+'</tr>'; });
+  t.innerHTML=h+'</tbody>';
+}
+
+function bars(id, data, opts={}){
+  const svg=document.getElementById(id); const years=[...Y_B,...Y_L].filter(y=>data[y]!=null);
+  const W=900,H=260,padL=56,padR=16,padT=24,padB=48; const vals=years.map(y=>data[y]);
+  let min=Math.min(0,...vals), max=Math.max(0,...vals); if(opts.min!=null) min=opts.min; if(opts.max!=null) max=opts.max;
+  if(max===min) max=min+1;
+  const x=i=>padL+i*((W-padL-padR)/years.length), bw=((W-padL-padR)/years.length)*0.62;
+  const y=v=>padT+(max-v)/(max-min)*(H-padT-padB);
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif" font-size="13">`;
+  const ticks=5; for(let i=0;i<=ticks;i++){ const v=min+(max-min)*i/ticks; s+=`<line x1="${padL}" x2="${W-padR}" y1="${y(v)}" y2="${y(v)}" class="grid-line"/><text x="${padL-8}" y="${y(v)+4}" text-anchor="end" font-size="12">${fmt(v,opts.dec??1)}</text>`; }
+  if(min<0) s+=`<line x1="${padL}" x2="${W-padR}" y1="${y(0)}" y2="${y(0)}" class="zero"/>`;
+  years.forEach((yr,i)=>{ const v=data[yr]; const col=Y_B.includes(yr)?'var(--b)':'var(--l)'; const top=Math.min(y(v),y(0)), h=Math.abs(y(v)-y(0));
+    s+=`<rect x="${x(i)+((W-padL-padR)/years.length-bw)/2}" y="${top}" width="${bw}" height="${Math.max(h,1)}" rx="6" fill="${col}" opacity="${yr===2026?'.55':'1'}"/>`;
+    s+=`<text x="${x(i)+(W-padL-padR)/years.length/2}" y="${v>=0?top-6:top+h+14}" text-anchor="middle" class="val">${(opts.fmt||(v=>fmt(v,opts.dec??1)))(v)}</text>`;
+    s+=`<text x="${x(i)+(W-padL-padR)/years.length/2}" y="${H-8}" text-anchor="middle" class="yr">${yr}${yr===2026?'*':''}</text>`; });
+  s+='</svg>';
+  svg.outerHTML=s.replace('<svg ','<svg class="chart" id="'+id+'" ');
+}
+
+/* ===================== TABELAS E GRÁFICOS ===================== */
+// PIB
+bars('c-pib',D.pib);
+(function(){ const rows=[...Y_B,...Y_L].map(y=>({g:Y_B.includes(y)?'b':'l',label:yrLabel(y,'pib'),cells:[{v:sign(D.pib[y]),cls:cls(D.pib[y])}]}));
+  const accB=compound(Y_B.map(y=>D.pib[y])), accL=compound([2023,2024,2025].map(y=>D.pib[y]));
+  table('t-pib',['Variação real (%)'],rows,[
+    {g:'b',label:'Bolsonaro, acumulado 2019–2022 (4 anos)',cells:[{v:sign(accB)+` · média ${fmt(((1+accB/100)**(1/4)-1)*100)}%/ano`,cls:cls(accB)}]},
+    {g:'l',label:'Lula, acumulado 2023–2025 (3 anos fechados)',cells:[{v:sign(accL)+` · média ${fmt(((1+accL/100)**(1/3)-1)*100)}%/ano`,cls:cls(accL)}]}]); })();
+// IPCA
+bars('c-ipca',D.ipca,{dec:2});
+(function(){ const rows=[...Y_B,...Y_L].map(y=>({g:Y_B.includes(y)?'b':'l',label:yrLabel(y,'ipca'),cells:[{v:fmt(D.ipca[y],2)+'%'},{v:sign(D.alim[y],2,'%'),cls:cls(D.alim[y])},{v:D.ipca[y]>4.5?'acima do teto':'dentro'}]}));
+  table('t-ipca',['IPCA no ano','Alimentação no domicílio','Meta (teto 4,5%)'],rows,[
+    {g:'b',label:'Bolsonaro, acumulado 2019–2022 (4 anos)',cells:[{v:fmt(compound(Y_B.map(y=>D.ipca[y])),1)+'%'},{v:fmt(compound(Y_B.map(y=>D.alim[y])),1)+'%'},{v:'2 de 4 anos acima'}]},
+    {g:'l',label:'Lula, acumulado 2023–ago/2026 (3 anos e 8 meses)',cells:[{v:fmt(compound(Y_L.map(y=>D.ipca[y])),1)+'%'},{v:fmt(compound(Y_L.map(y=>D.alim[y])),1)+'%'},{v:'1 de 3 anos acima · 12 meses até ago/26: 4,22%'}]}]); })();
+// Desemprego
+bars('c-des',D.des);
+(function(){ const rows=[...Y_B,...Y_L].map(y=>({g:Y_B.includes(y)?'b':'l',label:yrLabel(y,'des'),cells:[{v:fmt(D.des[y])+'%'}]}));
+  table('t-des',['Taxa de desocupação (média anual)'],rows,[
+    {g:'b',label:'Bolsonaro: 2018 → 2022',cells:[{v:'12,4% → 9,3% (−3,1 p.p.) · média dos 4 anos: '+fmt(Y_B.reduce((a,y)=>a+D.des[y],0)/4)+'%'}]},
+    {g:'l',label:'Lula: 2022 → 2025',cells:[{v:'9,3% → 5,6% (−3,7 p.p.) · média dos 3 anos: '+fmt([2023,2024,2025].reduce((a,y)=>a+D.des[y],0)/3)+'%'}]}]); })();
+// Caged
+bars('c-caged',D.caged,{dec:0});
+(function(){ const rows=[...Y_B,...Y_L].map(y=>({g:Y_B.includes(y)?'b':'l',label:yrLabel(y,'caged')+(y===2019?' <span style="color:var(--muted);font-size:.8em">(Caged antigo)</span>':''),cells:[{v:D.caged[y]==null?'n/d':sign(D.caged[y]*1000,0),cls:cls(D.caged[y])}]}));
+  const sB=Y_B.reduce((a,y)=>a+D.caged[y],0), sB2=[2020,2021,2022].reduce((a,y)=>a+D.caged[y],0), sL=[2023,2024,2025].reduce((a,y)=>a+D.caged[y],0);
+  table('t-caged',['Saldo de vagas formais'],rows,[
+    {g:'b',label:'Bolsonaro, soma 2019–2022 (4 anos) / só 2020–2022 (Novo Caged)',cells:[{v:sign(sB*1000,0)+' / '+sign(sB2*1000,0),cls:'pos'}]},
+    {g:'l',label:'Lula, soma 2023–2025 (3 anos)',cells:[{v:sign(sL*1000,0)+' · média '+fmt(sL/3*1000,0)+'/ano',cls:'pos'}]}]); })();
+// Salário mínimo
+(function(){ const yrs=[2018,...Y_B,...Y_L]; let rows=[];
+  yrs.forEach((y,i)=>{ if(i===0) return; const prev=yrs[i-1]; const nom=(D.sm[y]/D.sm[prev]-1)*100; const inf=D.ipca[prev]; rows.push({g:Y_B.includes(y)?'b':'l',label:y+(y===2023?' <span style="color:var(--muted);font-size:.8em">(R$ 1.302 jan–abr)</span>':''),cells:[{v:'R$ '+fmt(D.sm[y],0)},{v:sign(nom)+'%'},{v:'IPCA '+prev+': '+fmt(inf,2)+'%'}]}); });
+  const nB=(D.sm[2022]/D.sm[2018]-1)*100, iB=compound(Y_B.map(y=>D.ipca[y])), rB=((1+nB/100)/(1+iB/100)-1)*100;
+  const nL=(D.sm[2026]/D.sm[2022]-1)*100, iL=compound(Y_L.map(y=>D.ipca[y])), rL=((1+nL/100)/(1+iL/100)-1)*100;
+  table('t-sm',['Salário mínimo','Reajuste nominal','Inflação do ano anterior'],rows,[
+    {g:'b',label:'Bolsonaro: R$ 954 (2018) → R$ 1.212 (2022)',cells:[{v:sign(nB)+'% nominal'},{v:'IPCA 2019–22: +'+fmt(iB)+'%'},{v:'ganho real: '+sign(rB)+'%',cls:cls(rB)}]},
+    {g:'l',label:'Lula: R$ 1.212 (2022) → R$ 1.621 (2026)',cells:[{v:sign(nL)+'% nominal'},{v:'IPCA 2023–ago/26: +'+fmt(iL)+'%'},{v:'ganho real: '+sign(rL)+'%',cls:cls(rL)}]}]); })();
+// Primário
+bars('c-prim',D.prim,{dec:0});
+(function(){ const rows=[...Y_B,...Y_L].map(y=>({g:Y_B.includes(y)?'b':'l',label:yrLabel(y,'prim'),cells:[{v:sign(D.prim[y],1),cls:cls(D.prim[y])},{v:D.primp[y]==null?'n/d':sign(D.primp[y],1,'% do PIB'),cls:cls(D.primp[y])}]}));
+  const sB=Y_B.reduce((a,y)=>a+D.prim[y],0), sBx=[2019,2021,2022].reduce((a,y)=>a+D.prim[y],0), sL=Y_L.reduce((a,y)=>a+D.prim[y],0), sL3=[2023,2024,2025].reduce((a,y)=>a+D.prim[y],0);
+  table('t-prim',['R$ bilhões','% do PIB'],rows,[
+    {g:'b',label:'Bolsonaro, soma 2019–2022',cells:[{v:sign(sB,1)+' (sem 2020: '+sign(sBx,1)+')',cls:'neg'},{v:'1 superávit em 4 anos'}]},
+    {g:'l',label:'Lula, soma 2023–ago/2026 (3 anos fechados: '+sign(sL3,1)+')',cells:[{v:sign(sL,1),cls:'neg'},{v:'0 superávits em 3 anos'}]}]); })();
+// DBGG
+bars('c-dbgg',D.dbgg,{min:60,max:90});
+(function(){ const yrs=[2018,...Y_B,...Y_L]; const rows=yrs.map((y,i)=>({g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:y===2018?'dez/2018 (ponto de partida)':yrLabel(y,'dbgg'),cells:[{v:fmt(D.dbgg[y])+'%'},{v:i===0?'—':sign(D.dbgg[y]-D.dbgg[yrs[i-1]],1,' p.p.'),cls:i===0?'':(D.dbgg[y]-D.dbgg[yrs[i-1]]>0?'neg':'pos')}]}));
+  table('t-dbgg',['Dívida bruta (% PIB)','Variação no ano'],rows,[
+    {g:'b',label:'Bolsonaro: dez/2018 → dez/2022',cells:[{v:'75,3% → 71,7%'},{v:sign(D.dbgg[2022]-D.dbgg[2018],1,' p.p.')+' (pico 86,9% em 2020)',cls:'pos'}]},
+    {g:'l',label:'Lula: dez/2022 → ago/2026',cells:[{v:'71,7% → 82,9%'},{v:sign(D.dbgg[2026]-D.dbgg[2022],1,' p.p.'),cls:'neg'}]}]); })();
+// Selic
+bars('c-selic',D.selic,{dec:2});
+(function(){ const yrs=[2018,...Y_B,...Y_L]; const rows=yrs.map(y=>({g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:y===2018?'dez/2018 (ponto de partida)':yrLabel(y,'selic'),cells:[{v:fmt(D.selic[y],2)+'%'}]}));
+  table('t-selic',['Selic no fim do período'],rows,[
+    {g:'b',label:'Bolsonaro: 6,50% → 13,75%',cells:[{v:sign(D.selic[2022]-D.selic[2018],2,' p.p.')+' · mínima 2,00% (2020)',cls:'neg'}]},
+    {g:'l',label:'Lula: 13,75% → 13,75%',cells:[{v:sign(D.selic[2026]-D.selic[2022],2,' p.p.')+' · mínima 10,50% (mai/24), máxima 15,00% (jun/25 a fev/26)'}]}]); })();
+// Dólar
+bars('c-usd',D.usd,{dec:2,min:0});
+(function(){ const yrs=[2018,...Y_B,...Y_L]; const rows=yrs.map((y,i)=>({g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:y===2018?'dez/2018 (ponto de partida)':yrLabel(y,'usd'),cells:[{v:'R$ '+fmt(D.usd[y],2)},{v:i===0?'—':sign((D.usd[y]/D.usd[yrs[i-1]]-1)*100)+'%',cls:i===0?'':(D.usd[y]>D.usd[yrs[i-1]]?'neg':'pos')}]}));
+  table('t-usd',['PTAX fim do período','Variação'],rows,[
+    {g:'b',label:'Bolsonaro: R$ 3,87 → R$ 5,22',cells:[{v:''},{v:sign((D.usd[2022]/D.usd[2018]-1)*100)+'%',cls:'neg'}]},
+    {g:'l',label:'Lula: R$ 5,22 → R$ 4,99 (07/10/2026)',cells:[{v:''},{v:sign((D.usd[2026]/D.usd[2022]-1)*100)+'% (pico R$ 6,19 em dez/24)',cls:'pos'}]}]); })();
+// Cesta
+bars('c-cesta',D.cesta,{dec:0,min:0});
+(function(){ const yrs=[2018,...Y_B,...Y_L]; const rows=yrs.map((y,i)=>{ const ratio=D.cesta[y]/D.sm[y]*100; return {g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:y===2018?'dez/2018 (ponto de partida)':yrLabel(y,'cesta'),cells:[{v:'R$ '+fmt(D.cesta[y],2)},{v:i===0?'—':sign((D.cesta[y]/D.cesta[yrs[i-1]]-1)*100)+'%',cls:i===0?'':(D.cesta[y]>D.cesta[yrs[i-1]]?'neg':'pos')},{v:fmt(ratio)+'% do mínimo (R$ '+fmt(D.sm[y],0)+')'}]}; });
+  table('t-cesta',['Cesta DIEESE SP','Variação','Peso no salário mínimo'],rows,[
+    {g:'b',label:'Bolsonaro: dez/2018 → dez/2022',cells:[{v:'R$ 471 → R$ 791'},{v:sign((D.cesta[2022]/D.cesta[2018]-1)*100)+'% (IPCA no período: +'+fmt(compound(Y_B.map(y=>D.ipca[y])))+'%)',cls:'neg'},{v:'49% → 65% do mínimo'}]},
+    {g:'l',label:'Lula: dez/2022 → ago/2026',cells:[{v:'R$ 791 → R$ 901'},{v:sign((D.cesta[2026]/D.cesta[2022]-1)*100)+'% (IPCA no período: +'+fmt(compound(Y_L.map(y=>D.ipca[y])))+'%)',cls:'neg'},{v:'65% → 56% do mínimo'}]}]); })();
+// Itens
+(function(){ const t=document.getElementById('t-itens'); let h='<thead><tr><th>Alimento</th>'+Y_B.map(y=>`<th style="color:var(--b)">${y}</th>`).join('')+'<th style="color:var(--b)">Bolsonaro<br>4 anos</th>'+Y_L.map(y=>`<th style="color:var(--l)">${y===2026?'2026*':y}</th>`).join('')+'<th style="color:var(--l)">Lula<br>até ago/26</th></tr></thead><tbody>';
+  ITENS.forEach(([n,d])=>{ const aB=compound(Y_B.map(y=>d[y])), aL=compound(Y_L.map(y=>d[y])); const bold=n.startsWith('IPCA')||n.startsWith('Alimentação');
+    h+=`<tr${bold?' class="tot"':''}><td>${n}</td>`+Y_B.map(y=>`<td class="${cls(d[y])}">${sign(d[y])}</td>`).join('')+`<td class="${cls(aB)}" style="font-weight:700;background:#f5f3fb">${sign(aB)}</td>`+Y_L.map(y=>`<td class="${cls(d[y])}">${sign(d[y])}</td>`).join('')+`<td class="${cls(aL)}" style="font-weight:700;background:#eef7f5">${sign(aL)}</td></tr>`; });
+  t.innerHTML=h+'</tbody>'; })();
+// Pobreza
+bars('c-pob',D.pob);
+(function(){ const rows=[...Y_B,...Y_L].filter(y=>y<=2025).map(y=>({g:Y_B.includes(y)?'b':'l',label:y===2025?'2025 <span style="color:var(--muted);font-size:.8em">(sai em dez/26)</span>':y,cells:[{v:D.pob[y]==null?'n/d':fmt(D.pob[y])+'%'},{v:D.xpob[y]==null?(y<2021?'série não comparável':'n/d'):fmt(D.xpob[y])+'%'}]}));
+  table('t-pob',['Pobreza (US$ 6,85/dia)','Extrema pobreza (US$ 2,15/dia)'],rows,[
+    {g:'b',label:'Bolsonaro: 2019 → 2022',cells:[{v:'32,6% → 31,6% (−1,0 p.p.; pico 36,7% em 2021)'},{v:'9,0% → 5,9% (2021→2022)'}]},
+    {g:'l',label:'Lula: 2022 → 2024',cells:[{v:'31,6% → 23,1% (−8,5 p.p.)',cls:'pos'},{v:'5,9% → 3,5% (−2,4 p.p.)',cls:'pos'}]}]); })();
+// MVI
+bars('c-mvi',D.mvi,{dec:0,min:0,fmt:v=>fmt(v/1000,1)+' mil'});
+(function(){ const yrs=[2018,...Y_B,2023,2024,2025]; const rows=yrs.map((y,i)=>({g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:y===2018?'2018 (ponto de partida)':y,cells:[{v:fmt(D.mvi[y],0)},{v:i===0?'—':sign((D.mvi[y]/D.mvi[yrs[i-1]]-1)*100)+'%',cls:i===0?'':(D.mvi[y]<D.mvi[yrs[i-1]]?'pos':'neg')}]}));
+  table('t-mvi',['Mortes violentas intencionais','Variação'],rows,[
+    {g:'b',label:'Bolsonaro: 2018 → 2022',cells:[{v:'57.956 → 47.508'},{v:sign((D.mvi[2022]/D.mvi[2018]-1)*100)+'%',cls:'pos'}]},
+    {g:'l',label:'Lula: 2022 → 2025',cells:[{v:'47.508 → 40.775'},{v:sign((D.mvi[2025]/D.mvi[2022]-1)*100)+'%',cls:'pos'}]}]); })();
+// PRODES
+bars('c-prodes',D.prodes,{dec:0,min:0});
+(function(){ const yrs=[2018,...Y_B,2023,2024,2025]; const rows=yrs.map((y,i)=>({g:y===2018?'':(Y_B.includes(y)?'b':'l'),label:(y===2018?'2018 (ponto de partida)':y)+(y===2025?' <span style="color:var(--muted);font-size:.8em">(estimativa)</span>':''),cells:[{v:fmt(D.prodes[y],0)+' km²'},{v:i===0?'—':sign((D.prodes[y]/D.prodes[yrs[i-1]]-1)*100)+'%',cls:i===0?'':(D.prodes[y]<D.prodes[yrs[i-1]]?'pos':'neg')}]}));
+  table('t-prodes',['Área desmatada','Variação'],rows,[
+    {g:'b',label:'Bolsonaro: média 2019–2022',cells:[{v:fmt(Y_B.reduce((a,y)=>a+D.prodes[y],0)/4,0)+' km²/ano'},{v:'2018 → 2022: '+sign((D.prodes[2022]/D.prodes[2018]-1)*100)+'%',cls:'neg'}]},
+    {g:'l',label:'Lula: média 2023–2025',cells:[{v:fmt([2023,2024,2025].reduce((a,y)=>a+D.prodes[y],0)/3,0)+' km²/ano'},{v:'2022 → 2025: '+sign((D.prodes[2025]/D.prodes[2022]-1)*100)+'%',cls:'pos'}]}]); })();
+
+/* ===================== RESUMO (KPIs) ===================== */
+(function(){
+  const K=[
+    ['PIB, crescimento médio anual', fmt(((1+compound(Y_B.map(y=>D.pib[y]))/100)**(1/4)-1)*100)+'%/ano', fmt(((1+compound([2023,2024,2025].map(y=>D.pib[y]))/100)**(1/3)-1)*100)+'%/ano', '4 anos × 3 anos fechados', '#economia'],
+    ['Inflação acumulada (IPCA)', '+'+fmt(compound(Y_B.map(y=>D.ipca[y])))+'%', '+'+fmt(compound(Y_L.map(y=>D.ipca[y])))+'%', '4 anos × até ago/2026', '#economia'],
+    ['Desemprego, início → fim', '12,4% → 9,3%', '9,3% → 5,4%', 'média 2018 → 2022 × 2022 → 2º tri/2026', '#emprego'],
+    ['Salário mínimo, ganho real', sign(((D.sm[2022]/D.sm[2018])/(1+compound(Y_B.map(y=>D.ipca[y]))/100)-1)*100)+'%', sign(((D.sm[2026]/D.sm[2022])/(1+compound(Y_L.map(y=>D.ipca[y]))/100)-1)*100)+'%', 'acima do IPCA do período', '#emprego'],
+    ['Déficit primário, soma', sign(Y_B.reduce((a,y)=>a+D.prim[y],0),0)+' bi', sign(Y_L.reduce((a,y)=>a+D.prim[y],0),0)+' bi', 'R$ correntes; Bolsonaro sem 2020: '+sign([2019,2021,2022].reduce((a,y)=>a+D.prim[y],0),0)+' bi', '#contas'],
+    ['Dívida bruta, início → fim', '75,3% → 71,7%', '71,7% → 82,9%', '% do PIB; dez/2018 → dez/2022 × dez/2022 → ago/2026', '#contas'],
+    ['Selic, início → fim', '6,50% → 13,75%', '13,75% → 13,75%', 'fim de período', '#juros'],
+    ['Dólar, início → fim', 'R$ 3,87 → R$ 5,22', 'R$ 5,22 → R$ 4,99', 'PTAX; '+sign((D.usd[2022]/D.usd[2018]-1)*100)+'% × '+sign((D.usd[2026]/D.usd[2022]-1)*100)+'%', '#juros'],
+    ['Cesta básica (DIEESE SP)', sign((D.cesta[2022]/D.cesta[2018]-1)*100)+'%', sign((D.cesta[2026]/D.cesta[2022]-1)*100)+'%', 'R$ 471 → 791 × R$ 791 → 901 (ago/26)', '#cesta'],
+    ['Alimentação no domicílio (IPCA)', '+'+fmt(compound(Y_B.map(y=>D.alim[y])))+'%', '+'+fmt(compound(Y_L.map(y=>D.alim[y])))+'%', '4 anos × até ago/2026', '#cesta'],
+    ['Pobreza (US$ 6,85/dia)', '32,6% → 31,6%', '31,6% → 23,1%', '2019 → 2022 × 2022 → 2024', '#social'],
+    ['Mortes violentas intencionais', sign((D.mvi[2022]/D.mvi[2018]-1)*100)+'%', sign((D.mvi[2025]/D.mvi[2022]-1)*100)+'%', '2018 → 2022 × 2022 → 2025', '#seguranca'],
+    ['Desmatamento Amazônia, média', fmt(Y_B.reduce((a,y)=>a+D.prodes[y],0)/4,0)+' km²/ano', fmt([2023,2024,2025].reduce((a,y)=>a+D.prodes[y],0)/3,0)+' km²/ano', 'PRODES 2019–22 × 2023–25', '#ambiente'],
+  ];
+  document.getElementById('kpis').innerHTML=K.map(k=>`<a class="kpi" href="${k[4]}" style="text-decoration:none"><div class="t">${k[0]}</div><div class="row"><span class="who b">Bolsonaro</span><span class="v">${k[1]}</span></div><div class="row"><span class="who l">Lula</span><span class="v">${k[2]}</span></div><div class="d">${k[3]}</div></a>`).join('');
+})();
+</script>
+</body>
+</html>
